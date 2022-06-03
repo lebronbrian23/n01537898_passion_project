@@ -1,0 +1,15 @@
+﻿body {
+}
+
+.navbar-background{
+    background-color: #1C17FC;
+    color: #FFFFFF;
+}
+#tenants {
+    margin-top: 2em;
+}
+#footer {
+    background-color: #B7B6FC;
+    color: #000000;
+    padding: 10px;
+}
