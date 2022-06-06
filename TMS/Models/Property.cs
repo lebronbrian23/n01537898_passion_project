@@ -47,7 +47,7 @@ namespace TMS.Models
 
     } 
     //single property data
-    public class ListSinglePropertyData
+    public class ListPropertyData
     {
         public int PropertyId { get; set; }
 

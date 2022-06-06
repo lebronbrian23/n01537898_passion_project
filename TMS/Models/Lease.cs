@@ -11,9 +11,7 @@ namespace TMS.Models
     {
         [Key]
         public int LeaseId { get; set; }
-        public int Room { get; set; }
-        public int Floor { get; set; }
-
+       
         [ForeignKey("Tenant")]
         public int TenantId { get; set; }
         public Tenant Tenant { get; set; }

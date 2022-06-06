@@ -7,13 +7,13 @@ namespace TMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class propertyname : IMigrationMetadata
+    public sealed partial class tms : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(propertyname));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tms));
         
         string IMigrationMetadata.Id
         {
-            get { return "202206011613171_property-name"; }
+            get { return "202206041528227_tms"; }
         }
         
         string IMigrationMetadata.Source

@@ -183,25 +183,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandlordDataController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\PropertyDataController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Controllers\TenantDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202206011449061_tms.cs" />
-    <Compile Include="Migrations\202206011449061_tms.designer.cs">
-      <DependentUpon>202206011449061_tms.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202206011613171_property-name.cs" />
-    <Compile Include="Migrations\202206011613171_property-name.designer.cs">
-      <DependentUpon>202206011613171_property-name.cs</DependentUpon>
+    <Compile Include="Migrations\202206041528227_tms.cs" />
+    <Compile Include="Migrations\202206041528227_tms.designer.cs">
+      <DependentUpon>202206041528227_tms.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Landlord.cs" />
     <Compile Include="Models\Lease.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\ViewModels\TenantAndProperty.cs" />
     <Compile Include="Models\TmDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,9 +240,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Tenant\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Property\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -260,11 +260,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202206011449061_tms.resx">
-      <DependentUpon>202206011449061_tms.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202206011613171_property-name.resx">
-      <DependentUpon>202206011613171_property-name.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202206041528227_tms.resx">
+      <DependentUpon>202206041528227_tms.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

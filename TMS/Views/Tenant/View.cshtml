@@ -1,0 +1,37 @@
+﻿@model TMS.Models.Tenant
+
+@{
+    ViewBag.Title = "Tenant";
+}
+
+
+<div id="tenants" class="row">
+    <div class="col-md-6">
+        <h2>Tenant <span># @Model.TenantId</span></h2>
+    
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Room</strong>
+                <p>@Model.TenantRoom</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Name</strong>
+                <p>@Model.TenantName</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Email</strong>
+                <p>@Model.TenantEmail</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Phone</strong>
+                <p>@Model.TenantPhone</p>
+            </div>
+        </div>
+       
+    </div>
+
+    <div class="col-md-6">
+    </div>
+</div>

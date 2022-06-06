@@ -1,12 +1,21 @@
 ﻿body {
 }
 
-.navbar-background{
+.navbar-background, .bg-purple {
     background-color: #1C17FC;
     color: #FFFFFF;
 }
+
 #tenants {
     margin-top: 2em;
+}
+.form-bg {
+    color: inherit;
+    background-color: #eeeeee;
+    padding:10px;
+}
+.form-bg > form{
+    padding:0 6em;
 }
 #footer {
     background-color: #B7B6FC;

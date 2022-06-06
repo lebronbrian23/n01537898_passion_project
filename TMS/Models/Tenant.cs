@@ -15,7 +15,8 @@ namespace TMS.Models
         public string TenantPhone { get; set; }
         public string TenantEmergencyContact { get; set; }
         public DateTime TenantJoined { get; set; }
-
+        public int TenantRoom { get; set; }
+        public int TenantFloor { get; set; }
         public virtual ICollection<Lease> Leases { get; set; }
     } 
     public class TenantData
@@ -26,16 +27,17 @@ namespace TMS.Models
         public string TenantPhone { get; set; }
         public string TenantEmergencyContact { get; set; }
         public DateTime TenantJoined { get; set; }
-        public string TenantFloor { get; set; }
-        ///public int TenantLeases { get; set; }
-
+        public int TenantFloor { get; set; }
+        public int TenantRoom { get; set; }
         public virtual ICollection<Lease> Leases { get; set; }
 
     }
-    public class ListSingleTenantData
+    public class ListTenantData
     {
         public int TenantId { get; set; }
         public string TenantName { get; set; }
+        public int TenantRoom { get; set; }
 
     }
+  
 }

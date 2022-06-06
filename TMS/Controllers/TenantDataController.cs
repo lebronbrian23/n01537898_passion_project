@@ -27,20 +27,37 @@ namespace TMS.Controllers
         /// a list of tenants
         /// </returns>
         [HttpGet]
-        [Route("api/tenantdata/listtenants")]
-        public IEnumerable<ListSingleTenantData> ListTenants()
+        [ResponseType(typeof(Tenant))]
+        public IHttpActionResult ListTenants()
         {
             List<Tenant> Tenants = Tms.Tenants.ToList();
-            List<ListSingleTenantData> TenantDataList = new List<ListSingleTenantData>();
-            Tenants.ForEach(t => TenantDataList.Add(new ListSingleTenantData()
+            List<ListTenantData> TenantDataList = new List<ListTenantData>();
+            Tenants.ForEach(t => TenantDataList.Add(new ListTenantData()
             {
                 TenantId = t.TenantId,
                 TenantName = t.TenantName,
+                TenantRoom = t.TenantRoom
+
+            }));
+            return Ok(TenantDataList);
+
+        }
+        /*[HttpGet]
+        [Route("api/tenantdata/listtenants")]
+        public IEnumerable<ListTenantData> ListTenants()
+        {
+            List<Tenant> Tenants = Tms.Tenants.ToList();
+            List<ListTenantData> TenantDataList = new List<ListTenantData>();
+            Tenants.ForEach(t => TenantDataList.Add(new ListTenantData()
+            {
+                TenantId = t.TenantId,
+                TenantName = t.TenantName,
+                TenantRoom = t.TenantRoom
                
             }));
             return TenantDataList;
            
-        }
+        }*/
 
         //this will access the tenants table
         /// <summary>
@@ -70,7 +87,8 @@ namespace TMS.Controllers
                     TenantPhone = Tenant.TenantPhone,
                     TenantEmergencyContact = Tenant.TenantEmergencyContact,
                     TenantJoined = Tenant.TenantJoined,
-                    TenantFloor = "3"
+                    TenantFloor = Tenant.TenantFloor,
+                    TenantRoom = Tenant.TenantRoom,
                 };
 
                 return Ok(tenantData);

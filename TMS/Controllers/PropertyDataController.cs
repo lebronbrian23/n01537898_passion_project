@@ -28,11 +28,11 @@ namespace TMS.Controllers
         /// </returns>
         [HttpGet]
         [Route("api/Propertydata/listProperties")]
-        public IEnumerable<ListSinglePropertyData> ListProperties()
+        public IEnumerable<ListPropertyData> ListProperties()
         {
             List<Property> Properties = Tms.Properties.ToList();
-            List<ListSinglePropertyData> PropertyDataList = new List<ListSinglePropertyData>();
-            Properties.ForEach(p => PropertyDataList.Add(new ListSinglePropertyData()
+            List<ListPropertyData> PropertyDataList = new List<ListPropertyData>();
+            Properties.ForEach(p => PropertyDataList.Add(new ListPropertyData()
             {
                 PropertyId = p.PropertyId,
                 PropertyName = p.PropertyName,
