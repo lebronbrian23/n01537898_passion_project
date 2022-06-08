@@ -164,22 +164,24 @@ namespace TMS.Controllers
         ///[Route("api/tenantdata/deletetenant/{id}")]
 
         [ResponseType(typeof(Tenant))]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult DeleteTenant(int id)
         {
+            Debug.WriteLine("am here");
+            Debug.WriteLine(id);
             Tenant tenant = Tms.Tenants.Find(id);
+
             if(tenant == null)
             {
                 return NotFound();
             }
-
+            //check if a tenant has a lease
             Lease lease = Tms.Leases.Where(l => l.TenantId == id).FirstOrDefault();
-            if (lease == null)
+            if (lease != null)
             {
-                return NotFound();
+                Tms.Leases.Remove(lease);
             }
-            Tms.Leases.Remove(lease);
-            
+
             Tms.Tenants.Remove(tenant);
             Tms.SaveChanges();
             return Ok();

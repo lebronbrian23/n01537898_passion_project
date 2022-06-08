@@ -244,6 +244,7 @@
     <Content Include="Views\Tenant\View.cshtml" />
     <Content Include="Views\Tenant\Index.cshtml" />
     <Content Include="Views\Tenant\Edit.cshtml" />
+    <Content Include="Views\Tenant\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

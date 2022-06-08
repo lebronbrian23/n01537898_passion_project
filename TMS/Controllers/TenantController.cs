@@ -160,6 +160,33 @@ namespace TMS.Controllers
 
 
         }
+        // GET: Tenant/Delete/5
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "tenantdata/findtenant/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            Tenant tenant = response.Content.ReadAsAsync<Tenant>().Result;
+            return View(tenant);
+        }
+
+        // POST: tenant/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            string url = "tenantdata/deletetenant/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("/view/" + id);
+            }
+        }
 
     }
 }
