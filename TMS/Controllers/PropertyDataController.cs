@@ -119,7 +119,7 @@ namespace TMS.Controllers
         [ResponseType(typeof(Property))]
         [HttpPost]
         [Route("api/propertydata/updateproperty")]
-        public IHttpActionResult UpdateLandlord(int id, Property property)
+        public IHttpActionResult UpdateProperty(int id, Property property)
         {
             //check if there is some errors and id matches the propertyId
             if (!ModelState.IsValid || property.PropertyId != id)

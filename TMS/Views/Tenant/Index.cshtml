@@ -10,22 +10,25 @@
         <h2>Tenants <span></span></h2>
         <table class="table-responsive" width="100%">
             <thead>
-                <th>Room</th>
-                <th>Name</th>
-                <th colspan="2">Action</th>
+                <tr>
+                    <th>Room</th>
+                    <th>Name</th>
+                    <th colspan="2">Action</th>
+                </tr>
             </thead>
                 <tbody>
-                    <tr>
+                    
                        @foreach (var tenant in Model.ListTenantData)
-                        {
-                            string edit_url = "/tenant/edit/" +tenant.TenantId;
-                            string view_url = "/tenant/view/" + tenant.TenantId;
-                            <td>@tenant.TenantRoom</td>
-                            <td>@tenant.TenantName</td>
-                            <td><a href="@edit_url"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                            <td><a href="@view_url"><i class="text-success fa-solid fa-eye"></i></a></td>
+                       {
+                           string edit_url = "/tenant/edit/" + tenant.TenantId;
+                           string view_url = "/tenant/view/" + tenant.TenantId;
+                           <tr>
+                                <td>@tenant.TenantRoom</td>
+                                <td>@tenant.TenantName</td>
+                                <td><a href="@edit_url"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                <td><a href="@view_url"><i class="text-success fa-solid fa-eye"></i></a></td>
+                            </tr>
                         }
-                    </tr>
                    
                 </tbody>
         </table>
@@ -34,7 +37,7 @@
 
     <div class="col-md-4 form-bg">
         <h2>Add new tenant</h2>
-        <form class="form form-horizontal" action="" method="post">
+        <form class="form form-horizontal" action="/tenant/add" method="post">
             <div class="form-group">
                 <label id="name">Name</label>
                 <input class="form-control" id="name" name="TenantName" type="text" value="" placeholder="Name" />
@@ -68,6 +71,10 @@
             <div class="form-group">
                 <label id="room">Room</label>
                 <input class="form-control" id="room" name="TenantRoom" type="number" value="" placeholder="Room" />
+            </div> 
+            <div class="form-group">
+                <label id="joined">Joined</label>
+                <input class="form-control" id="joined" name="TenantJoined" type="date" value=""  />
             </div>
             <div class="pull-right">
                 <button class="btn bg-purple"  type="submit">Add</button>

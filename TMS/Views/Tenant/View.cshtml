@@ -1,37 +1,64 @@
 ﻿@model TMS.Models.Tenant
 
 @{
-    ViewBag.Title = "Tenant";
+    ViewBag.Title = "View Tenant";
 }
 
 
 <div id="tenants" class="row">
-    <div class="col-md-6">
-        <h2>Tenant <span># @Model.TenantId</span></h2>
     
+    <h2>Tenant <span># @Model.TenantId</span></h2>
+    <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">
                 <strong>Room</strong>
                 <p>@Model.TenantRoom</p>
             </div>
             <div class="col-md-6">
-                <strong>Name</strong>
-                <p>@Model.TenantName</p>
+                <strong>Floor</strong>
+                <p>@Model.TenantFloor</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <strong>Email</strong>
-                <p>@Model.TenantEmail</p>
+                <strong>Name</strong>
+                <p>@Model.TenantName</p>
             </div>
             <div class="col-md-6">
                 <strong>Phone</strong>
                 <p>@Model.TenantPhone</p>
             </div>
         </div>
-       
+
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6  left-border-line">
+        <div class="row">
+            <div class="col-md-8">
+                <strong>Email</strong>
+                <p>@Model.TenantEmail</p>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Joined</strong>
+                <p>@Model.TenantJoined.ToString("yyyy-MM-dd")</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Emergency Contact</strong>
+                <p>@Model.TenantEmergencyContact</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+               
+                <a href="/tenant/edit/@Model.TenantId" class="btn bg-purple">Edit</a>
+            </div>
+            <div class="col-md-6">
+                <a href="/tenant/delete/@Model.TenantId" class="btn btn-danger">Delete</a>
+            </div>
+            
+        </div>
     </div>
 </div>

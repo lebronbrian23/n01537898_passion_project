@@ -9,16 +9,17 @@ using TMS.Models;
 using System.Web.Http.Description;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 
 namespace TMS.Controllers
 {
     public class TenantDataController : ApiController
     {
-        //this allows us to connect to the Mysql db 
+        ///this allows us to connect to the Mysql db 
         private TmDbContext Tms = new TmDbContext();
 
-        //this will access the tenants table
+        ///this will access the tenants table
         /// <summary>
         /// returns a list of tenants
         /// </summary>
@@ -42,24 +43,9 @@ namespace TMS.Controllers
             return Ok(TenantDataList);
 
         }
-        /*[HttpGet]
-        [Route("api/tenantdata/listtenants")]
-        public IEnumerable<ListTenantData> ListTenants()
-        {
-            List<Tenant> Tenants = Tms.Tenants.ToList();
-            List<ListTenantData> TenantDataList = new List<ListTenantData>();
-            Tenants.ForEach(t => TenantDataList.Add(new ListTenantData()
-            {
-                TenantId = t.TenantId,
-                TenantName = t.TenantName,
-                TenantRoom = t.TenantRoom
-               
-            }));
-            return TenantDataList;
-           
-        }*/
+       
 
-        //this will access the tenants table
+        ///this will access the tenants table
         /// <summary>
         /// returns a single tenant's data
         /// </summary>
@@ -95,8 +81,8 @@ namespace TMS.Controllers
             }
 
         }
-       
-        //this will access the tenants table
+
+        ///this will access the tenants table
         /// <summary>
         /// update a single tenant's data
         /// </summary>
@@ -104,15 +90,45 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
+        /// [Route("api/tenantdata/updatetenant/{id}")]
         [ResponseType(typeof(void))]
-        [HttpGet]
-        [Route("api/tenantdata/updatetenant/{id}")]
+        [HttpPost]
         public IHttpActionResult UpdateTenant(int id , Tenant tenant)
         {
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != tenant.TenantId)
+            {
+
+                return BadRequest();
+            }
+
+            Tms.Entry(tenant).State = EntityState.Modified;
+
+            try
+            {
+                Tms.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TenantExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return StatusCode(HttpStatusCode.OK);
+
         }
 
-        //this will access the tenants table
+        ///this will access the tenants table
         /// <summary>
         /// add a single tenant's data
         /// </summary>
@@ -120,9 +136,10 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
+        ///[Route("api/tenantdata/addtenant")]
+
         [ResponseType(typeof(Tenant))]
-        [HttpGet]
-        [Route("api/tenantdata/addtenant")]
+        [HttpPost]
         public IHttpActionResult AddTenant( Tenant tenant)
         {
             //check if there is some errors
@@ -136,7 +153,7 @@ namespace TMS.Controllers
             return CreatedAtRoute("DefaultApi", new { id = tenant.TenantId }, tenant);
         }
 
-        //this will access the tenants table
+        ///this will access the tenants table
         /// <summary>
         /// delete a single tenant's data
         /// </summary>
@@ -144,9 +161,10 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
+        ///[Route("api/tenantdata/deletetenant/{id}")]
+
         [ResponseType(typeof(Tenant))]
         [HttpGet]
-        [Route("api/tenantdata/deletetenant/{id}")]
         public IHttpActionResult DeleteTenant(int id)
         {
             Tenant tenant = Tms.Tenants.Find(id);
@@ -165,6 +183,16 @@ namespace TMS.Controllers
             Tms.Tenants.Remove(tenant);
             Tms.SaveChanges();
             return Ok();
+        }
+
+        /// <summary>
+        /// method to check if a tenant exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private bool TenantExists(int id)
+        {
+            return Tms.Tenants.Count(t => t.TenantId == id) > 0;
         }
     }
 }

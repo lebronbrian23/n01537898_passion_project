@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("TMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TMS", "Index", "Tenant", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse pull-right">
                 <ul class="nav navbar-nav">
@@ -35,7 +35,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer id="footer">
+        <footer id="footer" class="position-fixed">
             <p>&copy; @DateTime.Now.Year -All rights reserved</p>
         </footer>
     </div>

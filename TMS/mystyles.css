@@ -17,6 +17,9 @@
 .form-bg > form{
     padding:0 6em;
 }
+.left-border-line{
+    border-left: 1px solid black;
+}
 #footer {
     background-color: #B7B6FC;
     color: #000000;
