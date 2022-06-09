@@ -9,6 +9,9 @@
 #tenants {
     margin-top: 2em;
 }
+td {
+    height: 50px;
+}
 .form-bg {
     color: inherit;
     background-color: #eeeeee;
@@ -19,6 +22,10 @@
 }
 .left-border-line{
     border-left: 1px solid black;
+}
+.bottom-border-line{
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
 }
 #footer {
     background-color: #B7B6FC;

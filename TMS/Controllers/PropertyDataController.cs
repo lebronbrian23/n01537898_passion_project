@@ -73,7 +73,7 @@ namespace TMS.Controllers
                     LandlordId = Property.LandlordId,
                     LandlordName = Property.Landlord.LandlordName,
                     LandlordPhone = Property.Landlord.LandlordPhone,
-                    TenantsCount = Property.Leases.Count(),
+                    TenantsCount = Property.Tenants.Count(),
 
 
                 };

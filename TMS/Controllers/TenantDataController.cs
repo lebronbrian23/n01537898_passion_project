@@ -100,7 +100,7 @@ namespace TMS.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            
             if (id != tenant.TenantId)
             {
 
@@ -136,19 +136,30 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
-        ///[Route("api/tenantdata/addtenant")]
+        [Route("api/tenantdata/addtenant/{PropertyId}")]
 
         [ResponseType(typeof(Tenant))]
         [HttpPost]
-        public IHttpActionResult AddTenant( Tenant tenant)
+        public IHttpActionResult AddTenant(int PropertyId ,Tenant tenant)
         {
+            
             //check if there is some errors
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-
+            
             Tms.Tenants.Add(tenant);
+            Tms.SaveChanges();
+
+            //making a lease by associating a property to a tenant using ids
+            var newLease = new Lease
+            {
+                TenantId = tenant.TenantId,
+                PropertyId = PropertyId
+            };
+
+            Tms.Leases.Add(newLease);
             Tms.SaveChanges();
             return CreatedAtRoute("DefaultApi", new { id = tenant.TenantId }, tenant);
         }
@@ -167,8 +178,7 @@ namespace TMS.Controllers
         [HttpPost]
         public IHttpActionResult DeleteTenant(int id)
         {
-            Debug.WriteLine("am here");
-            Debug.WriteLine(id);
+            
             Tenant tenant = Tms.Tenants.Find(id);
 
             if(tenant == null)

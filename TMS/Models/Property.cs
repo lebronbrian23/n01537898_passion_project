@@ -23,7 +23,7 @@ namespace TMS.Models
         public int LandlordId { get; set; }
         public virtual Landlord Landlord { get; set; }
        
-        public virtual ICollection<Lease> Leases { get; set; }
+        public virtual ICollection<Lease> Tenants { get; set; }
     }
     
     public class PropertyData

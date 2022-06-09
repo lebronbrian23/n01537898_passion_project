@@ -133,17 +133,16 @@ namespace TMS.Controllers
             }
         }
 
-     
+
         // POST: tenant/add
         [HttpPost]
-        public ActionResult Add(Tenant tenant)
+        public ActionResult Add(AddTenantData tenant)
         {
             //add a new teneat into our system using the API
-            string url = "tenantdata/addtenant";
-
-
+            string url = "tenantdata/addtenant/" + tenant.PropertyId;
+            
             string jsonpayload = jss.Serialize(tenant);
-
+           
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
 
@@ -161,6 +160,7 @@ namespace TMS.Controllers
 
         }
         // GET: Tenant/Delete/5
+        [Route("/tenant/delete/{id}")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "tenantdata/findtenant/" + id;

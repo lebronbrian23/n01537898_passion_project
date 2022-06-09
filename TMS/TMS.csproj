@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202206041528227_tms.designer.cs">
       <DependentUpon>202206041528227_tms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206090523570_leasemigrate.cs" />
+    <Compile Include="Migrations\202206090523570_leasemigrate.designer.cs">
+      <DependentUpon>202206090523570_leasemigrate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Landlord.cs" />
     <Compile Include="Models\Lease.cs" />
@@ -266,6 +270,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202206041528227_tms.resx">
       <DependentUpon>202206041528227_tms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206090523570_leasemigrate.resx">
+      <DependentUpon>202206090523570_leasemigrate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
