@@ -1,12 +1,12 @@
-#TMS (Tenants Management System) passion project
+# TMS (Tenants Management System) passion project
 
 TMS is a management system is a CMS that will be used by landlords to manage their tenants and their properties.
 
-##Features
+## Features
 Feature to add a new , edit or delete a tenant.
 Feature to add , edit or delete a property
 
-##Database
+## Database
 
 TMS will have 4 tables.
 
