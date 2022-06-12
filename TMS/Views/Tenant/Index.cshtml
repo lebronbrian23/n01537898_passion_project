@@ -1,4 +1,4 @@
-﻿@model TMS.Models.ViewModels.TenantAndProperty
+﻿@model  IEnumerable<TMS.Models.ListTenantData>
 
 @{
     ViewBag.Title = "List of Tenants";
@@ -11,19 +11,19 @@
         <table class="table-responsive" width="100%">
             <thead>
                 <tr>
-                    <th>Room</th>
+                    <th>#</th>
                     <th>Name</th>
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
                 <tbody>
                     
-                       @foreach (var tenant in Model.ListTenantData)
+                       @foreach (var tenant in Model)
                        {
                            string edit_url = "/tenant/edit/" + tenant.TenantId;
                            string view_url = "/tenant/view/" + tenant.TenantId;
                            <tr>
-                                <td>@tenant.TenantRoom</td>
+                                <td>@tenant.TenantId</td>
                                 <td>@tenant.TenantName</td>
                                 <td><a href="@edit_url"><i class="fa-solid fa-pen-to-square"></i></a></td>
                                 <td><a href="@view_url"><i class="text-success fa-solid fa-eye"></i></a></td>
@@ -54,24 +54,6 @@
                 <label id="emergencyPhone">Emergency Phone</label>
                 <input class="form-control" id="emergencyPhone" name="TenantEmergencyContact" type="tel" value="" placeholder="Phone" />
             </div>
-            <div class="form-group">
-                <label id="propery">Property</label>
-                <select class="form-control" id="property" name="PropertyId">
-                   @foreach( var property in Model.ListPropertyData)
-                    {
-                        <option value="@property.PropertyId">@property.PropertyName</option>
-                    }
-
-                </select>
-            </div>
-            <div class="form-group">
-                <label id="floor">Floor</label>
-                <input class="form-control" id="floor" name="TenantFloor" type="number" value="" placeholder="Floor" />
-            </div>
-            <div class="form-group">
-                <label id="room">Room</label>
-                <input class="form-control" id="room" name="TenantRoom" type="number" value="" placeholder="Room" />
-            </div> 
             <div class="form-group">
                 <label id="joined">Joined</label>
                 <input class="form-control" id="joined" name="TenantJoined" type="date" value=""  />

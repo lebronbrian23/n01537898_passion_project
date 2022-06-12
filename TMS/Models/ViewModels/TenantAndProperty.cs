@@ -7,7 +7,7 @@ namespace TMS.Models.ViewModels
 {
     public class TenantAndProperty
     {
-        public IEnumerable<Tenant> ListTenantData { get; set; }
+        public int TenantId { get; set; }
         public IEnumerable<Property> ListPropertyData { get;set;}
     }
 }

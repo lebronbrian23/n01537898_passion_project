@@ -46,25 +46,15 @@ namespace TMS.Controllers
 
         public ActionResult Index()
         {
-            TenantAndProperty TenantAndPropertyList = new TenantAndProperty();
 
             //url to get list of tenants
             string url = "tenantData/listtenants";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            IEnumerable<Tenant> ListTenantData = response.Content.ReadAsAsync<IEnumerable<Tenant>>().Result;
-            TenantAndPropertyList.ListTenantData = ListTenantData;
-
-
-            //url to get list of properties
-            url = "Propertydata/listProperties";
-            response = client.GetAsync(url).Result;
-            IEnumerable<Property> ListPropertyData = response.Content.ReadAsAsync<IEnumerable<Property>>().Result;
-            TenantAndPropertyList.ListPropertyData = ListPropertyData;
-
+            IEnumerable<ListTenantData> ListTenantData = response.Content.ReadAsAsync<IEnumerable<ListTenantData>>().Result;
 
             // pass the list of tenants and list of proporties to /index.cshtml
-            return View(TenantAndPropertyList);
+            return View(ListTenantData);
         }
 
 
@@ -74,18 +64,24 @@ namespace TMS.Controllers
 
         public ActionResult View(int id)
         {
+            TenantDetails ViewModel = new TenantDetails();
 
-            //connect to data access layer
-            Tenant TenantData = new Tenant();
-
-            //url to get a tenant
+            //url to get a tenant  information
             string url = "tenantData/findtenant/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
+            TenantData Tenant= response.Content.ReadAsAsync<TenantData>().Result;
+            ViewModel.Tenant = Tenant;
 
-            TenantData = response.Content.ReadAsAsync<Tenant>().Result;
+            // all leases for this tenant
+
+            //url to get list of leases
+            url = "tenantdata/ListPropertiesForTenant/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<LeaseDto> Leases= response.Content.ReadAsAsync<IEnumerable<LeaseDto>>().Result;
+            ViewModel.Leases = Leases;
 
             // pass the  tenants to /view.cshtml
-            return View(TenantData);
+            return View(ViewModel);
         }
         
         // GET: edit a Tenant
@@ -100,15 +96,7 @@ namespace TMS.Controllers
             TenantData Tenant = response.Content.ReadAsAsync<TenantData>().Result;
             ViewModel.Tenant = Tenant;
 
-            // all properties to choose from when updating this tenant
-
-            //url to get list of properties
-            url = "Propertydata/listProperties";
-            response = client.GetAsync(url).Result;
-            IEnumerable<Property> ListPropertyData = response.Content.ReadAsAsync<IEnumerable<Property>>().Result;
-            ViewModel.ListPropertyData = ListPropertyData;
-
-
+            
             return View(ViewModel);
         }
 
@@ -136,10 +124,10 @@ namespace TMS.Controllers
 
         // POST: tenant/add
         [HttpPost]
-        public ActionResult Add(AddTenantData tenant)
+        public ActionResult Add(Tenant tenant)
         {
             //add a new teneat into our system using the API
-            string url = "tenantdata/addtenant/" + tenant.PropertyId;
+            string url = "tenantdata/addtenant";
             
             string jsonpayload = jss.Serialize(tenant);
            
@@ -186,6 +174,60 @@ namespace TMS.Controllers
             {
                 return RedirectToAction("/view/" + id);
             }
+        }
+
+        // GET: tenant/newlease/5
+
+        public ActionResult NewLease(int id)
+        {
+            TenantAndProperty TenantAndPropertyList = new TenantAndProperty();
+
+            TenantAndPropertyList.TenantId = id;
+
+          
+            //url to get list of properties
+            string url = "Propertydata/listProperties";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<Property> ListPropertyData = response.Content.ReadAsAsync<IEnumerable<Property>>().Result;
+            TenantAndPropertyList.ListPropertyData = ListPropertyData;
+
+            // pass the list of tenants and list of proporties to /index.cshtml
+            return View(TenantAndPropertyList);
+        }
+
+        // POST: tenant/addlease/5
+        [HttpPost]
+        public ActionResult AddLease(int id ,Lease lease)
+        {
+            string url = "tenantdata/addlease";
+            string jsonpayload = jss.Serialize(lease);
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("/view/" + id);
+            }
+            else
+            {
+                return RedirectToAction("/newlease/" + id);
+            }
+        }
+
+        // GET: tenant/Deletelease/5
+        [HttpGet]
+        //[Route("/tenant/deletelease/{id}?TenantInd={tenantId}")]
+
+        public ActionResult DeleteLease(int id , int tenantId)
+        {
+            string url = "tenantdata/deletelease/" + id ;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            
+            return RedirectToAction("/view/" + tenantId);
         }
 
     }

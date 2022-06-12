@@ -44,7 +44,6 @@ namespace TMS.Models
 
         public int TenantsCount { get; set; }
 
-
     } 
     //single property data
     public class ListPropertyData

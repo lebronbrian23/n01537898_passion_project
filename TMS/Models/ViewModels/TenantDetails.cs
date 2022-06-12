@@ -8,6 +8,6 @@ namespace TMS.Models.ViewModels
     public class TenantDetails
     {
         public TenantData Tenant { get; set; }
-        public IEnumerable<Property> ListPropertyData { get; set; }
+        public IEnumerable<LeaseDto> Leases { get; set; }
     }
 }

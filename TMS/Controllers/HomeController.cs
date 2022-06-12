@@ -14,42 +14,12 @@ namespace TMS.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly HttpClient client;
-        private JavaScriptSerializer jss = new JavaScriptSerializer();
-
-        static HomeController()
-        {
-            HttpClientHandler handler = new HttpClientHandler()
-            {
-                AllowAutoRedirect = false,
-                UseCookies = false,
-            };
-            client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44327/api/");
-        }
-        // GET: Tenant
-
+       
         public ActionResult Index()
         {
-            TenantAndProperty TenantAndPropertyList = new TenantAndProperty();
 
-            //url to get list of tenants
-            string url = "tenantData/listtenants";
-            HttpResponseMessage response = client.GetAsync(url).Result;
+            return View();
 
-            IEnumerable<Tenant> ListTenantData = response.Content.ReadAsAsync<IEnumerable<Tenant>>().Result;
-            TenantAndPropertyList.ListTenantData = ListTenantData;
-
-
-            //url to get list of properties
-            url = "Propertydata/listProperties";
-            response = client.GetAsync(url).Result;
-            IEnumerable<Property> ListPropertyData = response.Content.ReadAsAsync<IEnumerable<Property>>().Result;
-            TenantAndPropertyList.ListPropertyData = ListPropertyData;
-
-
-            // pass the list of tenants and list of proporties to /index.cshtml
-            return View(TenantAndPropertyList);
         }
 
         

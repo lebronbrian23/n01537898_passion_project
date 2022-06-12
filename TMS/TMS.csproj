@@ -198,6 +198,10 @@
     <Compile Include="Migrations\202206090523570_leasemigrate.designer.cs">
       <DependentUpon>202206090523570_leasemigrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206102025310_leasetablesdata.cs" />
+    <Compile Include="Migrations\202206102025310_leasetablesdata.designer.cs">
+      <DependentUpon>202206102025310_leasetablesdata.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Landlord.cs" />
     <Compile Include="Models\Lease.cs" />
@@ -249,6 +253,7 @@
     <Content Include="Views\Tenant\Index.cshtml" />
     <Content Include="Views\Tenant\Edit.cshtml" />
     <Content Include="Views\Tenant\DeleteConfirm.cshtml" />
+    <Content Include="Views\Tenant\NewLease.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206090523570_leasemigrate.resx">
       <DependentUpon>202206090523570_leasemigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206102025310_leasetablesdata.resx">
+      <DependentUpon>202206102025310_leasetablesdata.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

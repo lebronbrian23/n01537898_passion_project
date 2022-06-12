@@ -1,4 +1,4 @@
-﻿@model TMS.Models.Tenant
+﻿@model TMS.Models.ViewModels.TenantDetails
 
 @{
     ViewBag.Title = "View Tenant";
@@ -6,59 +6,86 @@
 
 
 <div id="tenants" class="row">
-    
-    <h2>Tenant <span># @Model.TenantId</span></h2>
+
+    <h2>Tenant <span># @Model.Tenant.TenantId</span></h2>
     <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <strong>Room</strong>
-                <p>@Model.TenantRoom</p>
-            </div>
-            <div class="col-md-6">
-                <strong>Floor</strong>
-                <p>@Model.TenantFloor</p>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-md-6">
                 <strong>Name</strong>
-                <p>@Model.TenantName</p>
+                <p>@Model.Tenant.TenantName</p>
             </div>
             <div class="col-md-6">
                 <strong>Phone</strong>
-                <p>@Model.TenantPhone</p>
+                <p>@Model.Tenant.TenantPhone</p>
             </div>
         </div>
-
-    </div>
-
-    <div class="col-md-6  left-border-line">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <strong>Email</strong>
-                <p>@Model.TenantEmail</p>
+                <p>@Model.Tenant.TenantEmail</p>
             </div>
-            
+            <div class="col-md-6">
+                <strong>Emergency Contact</strong>
+                <p>@Model.Tenant.TenantEmergencyContact</p>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <strong>Joined</strong>
-                <p>@Model.TenantJoined.ToString("yyyy-MM-dd")</p>
-            </div>
-            <div class="col-md-6">
-                <strong>Emergency Contact</strong>
-                <p>@Model.TenantEmergencyContact</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-               
-                <a href="/tenant/edit/@Model.TenantId" class="btn bg-purple">Edit</a>
-            </div>
-            <div class="col-md-6">
-                <a href="/tenant/deleteconfirm/@Model.TenantId" class="btn btn-danger">Delete</a>
+                <p>@Model.Tenant.TenantJoined.ToString("yyyy-MM-dd")</p>
             </div>
             
         </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <a href="/tenant/edit/@Model.Tenant.TenantId" class="btn bg-purple">Edit</a>
+            </div>
+            <div class="col-md-6">
+                <a href="/tenant/deleteconfirm/@Model.Tenant.TenantId" class="btn btn-danger">Delete</a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-6 left-border-line">
+        <h3>Lease(s) @Model.Leases.Count()</h3>
+        @if (@Model.Leases.Count() > 0)
+        {
+            <table class="table-responsive" width="100%">
+                <thead>
+                    <tr>
+                        <th>Floor</th>
+                        <th>Room</th>
+                        <th>Property</th>
+                        <th>Address</th>
+                        <th>Lease Ends</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var lease in Model.Leases)
+                    {
+                        string delete_url = "/tenant/deletelease/" + lease.LeaseId +"?TenantId=" + lease.TenantId;
+                        <tr>
+                            <td>@lease.Floor</td>
+                            <td>@lease.Room</td>
+                            <td>@lease.PropertyName</td>
+                            <td>@lease.PropertyAddress</td>
+                            <td>@lease.LeaseEndDate.ToString("yyyy-MM-dd")</td>
+                            <td><a href="@delete_url" class="text-danger"><i class="fa-solid fa-x"></i></a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+    <div>
+        <a class="btn btn-primary" href="/tenant/newlease/@Model.Tenant.TenantId">Add Lease</a>
+    </div>
+
     </div>
 </div>

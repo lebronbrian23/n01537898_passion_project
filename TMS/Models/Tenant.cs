@@ -15,25 +15,10 @@ namespace TMS.Models
         public string TenantPhone { get; set; }
         public string TenantEmergencyContact { get; set; }
         public DateTime TenantJoined { get; set; }
-        public int TenantRoom { get; set; }
-        public int TenantFloor { get; set; }
-
+       
         public virtual ICollection<Lease> Properties { get; set; }
     }  
-    public class AddTenantData
-    {
-        [Key]
-        public int TenantId { get; set; }
-        public string TenantName { get; set; }
-        public string TenantEmail { get; set; }
-        public string TenantPhone { get; set; }
-        public string TenantEmergencyContact { get; set; }
-        public DateTime TenantJoined { get; set; }
-        public int TenantRoom { get; set; }
-        public int TenantFloor { get; set; }
-
-        public int PropertyId { get; set; }
-    }  
+    //Data transfer Object or DTO for the tenant
     public class TenantData
     {
         public int TenantId { get; set; }
@@ -42,16 +27,14 @@ namespace TMS.Models
         public string TenantPhone { get; set; }
         public string TenantEmergencyContact { get; set; }
         public DateTime TenantJoined { get; set; }
-        public int TenantFloor { get; set; }
-        public int TenantRoom { get; set; }
-        public virtual ICollection<Lease> Leases { get; set; }
 
+      
     }
+    //Data transfer Object or DTO for the tenant list
     public class ListTenantData
     {
         public int TenantId { get; set; }
         public string TenantName { get; set; }
-        public int TenantRoom { get; set; }
 
     }
   

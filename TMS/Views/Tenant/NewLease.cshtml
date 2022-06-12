@@ -1,0 +1,44 @@
+﻿@model TMS.Models.ViewModels.TenantAndProperty
+
+
+@{
+    ViewBag.Title = "Add Lease";
+}
+
+
+<div id="tenants" class="row">
+
+    <div class="col-md-5 col-md-offset-3 form-bg">
+        <h2>Add Lease</h2>
+        <form class="form form-horizontal" action="/Tenant/addLease/@Model.TenantId" method="post">
+            <input class="form-control" id="id" name="TenantId" type="hidden" value="@Model.TenantId" placeholder="Name" />
+
+            <div class="form-group">
+                <label id="propertyId">Property</label>
+                <select name="propertyId" class="form-control">
+                    @foreach(var property in Model.ListPropertyData)
+                    {
+                        <option value="@property.PropertyId">@property.PropertyName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label id="floor">Floor</label>
+                <input class="form-control" id="floor" name="Floor" type="number" value="" placeholder="2" />
+            </div>
+            <div class="form-group">
+                <label id="room">Room</label>
+                <input class="form-control" id="room" name="Room" type="number" value="" placeholder="211" />
+            </div>
+        
+            <div class="form-group">
+                <label id="lease_ends">Lease Ends on</label>
+                <input class="form-control" id="lease_ends" name="LeaseEndDate" type="date" value="" />
+            </div>
+
+            <div class="pull-right">
+                <button class="btn bg-purple" type="submit">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

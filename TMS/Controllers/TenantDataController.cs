@@ -37,7 +37,6 @@ namespace TMS.Controllers
             {
                 TenantId = t.TenantId,
                 TenantName = t.TenantName,
-                TenantRoom = t.TenantRoom
 
             }));
             return Ok(TenantDataList);
@@ -53,7 +52,7 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
-        [ResponseType(typeof(Tenant))]
+        //[ResponseType(typeof(Tenant))]
         [HttpGet]
         [Route("api/tenantdata/findtenant/{id}")]
         public IHttpActionResult FindTenant(int id)
@@ -73,13 +72,107 @@ namespace TMS.Controllers
                     TenantPhone = Tenant.TenantPhone,
                     TenantEmergencyContact = Tenant.TenantEmergencyContact,
                     TenantJoined = Tenant.TenantJoined,
-                    TenantFloor = Tenant.TenantFloor,
-                    TenantRoom = Tenant.TenantRoom,
+                  
                 };
+
 
                 return Ok(tenantData);
             }
 
+        }
+        /// <summary>
+        /// Gathers information about animals related to a particular keeper
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all animals in the database, including their associated species that match to a particular keeper id
+        /// </returns>
+        /// <param name="id">Keeper ID.</param>
+        /// <example>
+        /// GET: api/TenantData/ListPropertiesForTenant/1
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(LeaseDto))]
+        public IHttpActionResult ListPropertiesForTenant(int id)
+        {
+            
+            //all tenants that have properties which match with our ID
+            //can't directly access the ticket's bookings
+            //access the lease bridging table,
+            //joining the tickets in
+            List<Lease> TenantAndProperty = Tms.Leases.Where(l => l.TenantId == id).Include(l => l.Property).ToList();
+
+            List<LeaseDto> LeaseDtos = new List<LeaseDto>();
+
+            TenantAndProperty.ForEach(d => LeaseDtos.Add(new LeaseDto()
+            {
+                LeaseId = d.LeaseId,
+                TenantId = d.Tenant.TenantId,
+                PropertyId = d.Property.PropertyId,
+                PropertyName = d.Property.PropertyName,
+                PropertyAddress = d.Property.PropertyAddress,
+                Floor = d.Floor,
+                Room = d.Room,
+                LeaseEndDate = d.LeaseEndDate
+,
+            }));
+
+
+            return Ok(LeaseDtos);
+        }
+
+        ///this will access the leases table
+        /// <summary>
+        /// add a single lease
+        /// </summary>
+        /// <example> Post api/tenantdata/addlease</example>
+        /// <returns>
+        /// a lease
+        /// </returns>
+       // [Route("api/tenantdata/addlease")]
+
+        [ResponseType(typeof(Lease))]
+        [HttpPost]
+        public IHttpActionResult AddLease( Lease lease)
+        {
+
+            //check if there is some errors
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Tms.Leases.Add(lease);
+            Tms.SaveChanges();
+
+           
+            return CreatedAtRoute("DefaultApi", new { id = lease.LeaseId }, lease);
+        }
+        ///this will access the lease table
+        /// <summary>
+        /// delete a single tenant's lease
+        /// </summary>
+        /// <example> Get api/tenantdata/deletelease/23</example>
+        /// <returns>
+        /// a tenants
+        /// </returns>
+        ///[Route("api/tenantdata/deletelease/{id}")]
+
+        [ResponseType(typeof(Lease))]
+        [HttpPost]
+        public IHttpActionResult DeleteLease(int id)
+        {
+
+            Lease lease = Tms.Leases.Find(id);
+
+            if (lease == null)
+            {
+                return NotFound();
+            }
+
+            Tms.Leases.Remove(lease);
+            Tms.SaveChanges();
+            return Ok();
         }
 
         ///this will access the tenants table
@@ -136,11 +229,11 @@ namespace TMS.Controllers
         /// <returns>
         /// a tenants
         /// </returns>
-        [Route("api/tenantdata/addtenant/{PropertyId}")]
+        ///[Route("api/tenantdata/addtenant")]
 
         [ResponseType(typeof(Tenant))]
         [HttpPost]
-        public IHttpActionResult AddTenant(int PropertyId ,Tenant tenant)
+        public IHttpActionResult AddTenant(Tenant tenant)
         {
             
             //check if there is some errors
@@ -152,15 +245,6 @@ namespace TMS.Controllers
             Tms.Tenants.Add(tenant);
             Tms.SaveChanges();
 
-            //making a lease by associating a property to a tenant using ids
-            var newLease = new Lease
-            {
-                TenantId = tenant.TenantId,
-                PropertyId = PropertyId
-            };
-
-            Tms.Leases.Add(newLease);
-            Tms.SaveChanges();
             return CreatedAtRoute("DefaultApi", new { id = tenant.TenantId }, tenant);
         }
 
@@ -185,10 +269,12 @@ namespace TMS.Controllers
             {
                 return NotFound();
             }
-            //check if a tenant has a lease
-            Lease lease = Tms.Leases.Where(l => l.TenantId == id).FirstOrDefault();
+            //check if a tenant has any lease
+            var lease = Tms.Leases.First(row => row.TenantId == id );
+
             if (lease != null)
             {
+               // Delete all the leases that belong to the tenant
                 Tms.Leases.Remove(lease);
             }
 

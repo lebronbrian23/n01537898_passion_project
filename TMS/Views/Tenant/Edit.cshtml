@@ -29,23 +29,7 @@
                 <label id="emergencyPhone">Emergency Phone</label>
                 <input class="form-control" id="emergencyPhone" name="TenantEmergencyContact" type="tel" value="@Model.Tenant.TenantEmergencyContact" placeholder="Phone" />
             </div>
-            @*<div class="form-group">
-                <label id="propery">Property</label>
-                <select class="form-control" id="property" name="PropertyId">
-                    @foreach (var property in Model.ListPropertyData)
-                    {
-                        <option value="@property.PropertyId">@property.PropertyName</option>
-                    }
-                </select>
-            </div>*@
-            <div class="form-group">
-                <label id="floor">Floor</label>
-                <input class="form-control" id="floor" name="TenantFloor" type="number" value="@Model.Tenant.TenantFloor" placeholder="Floor" />
-            </div>
-            <div class="form-group">
-                <label id="room">Room</label>
-                <input class="form-control" id="room" name="TenantRoom" type="number" value="@Model.Tenant.TenantRoom" placeholder="Room" />
-            </div>
+         
             <div class="form-group">
                 <label id="joined">Joined</label>
                 <input class="form-control" id="joined" name="TenantJoined" type="date" value="@Model.Tenant.TenantJoined.ToString("yyyy-MM-dd")" />
