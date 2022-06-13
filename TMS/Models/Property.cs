@@ -16,7 +16,7 @@ namespace TMS.Models
         public string PropertyAddress { get; set; }
 
         public string PropertyFloors { get; set; }
-        public DateTime? PropertyConstructed { get; set; }
+        public DateTime PropertyConstructed { get; set; }
         //property belongs to one landlord
         // landlord can have many properties
         [ForeignKey("Landlord")]
@@ -33,7 +33,7 @@ namespace TMS.Models
         public string PropertyName { get; set; }
         public string PropertyAddress { get; set; }
         public string PropertyFloors { get; set; }
-        public DateTime? PropertyConstructed { get; set; }
+        public DateTime PropertyConstructed { get; set; }
         public int LandlordId { get; set; }
         public virtual Landlord Landlord { get; set; }
 

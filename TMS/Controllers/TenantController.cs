@@ -13,21 +13,7 @@ namespace TMS.Controllers
 {
     public class TenantController : Controller
     {
-        /*
-         *ListPropertiesForTenant
-
-            6:00 AM
-            ListPropertiesForLandlord
-
-            6:01 AM
-            ListLeasesForTenant
-
-            6:01 AM
-            AddLease(int tenantid, int propertyid)
-
-            6:01 AM
-            RemoveLease(int tenantid, int propertyid) 
-         */
+       
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 

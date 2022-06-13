@@ -9,6 +9,7 @@ using TMS.Models;
 using System.Web.Http.Description;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 
 namespace TMS.Controllers
@@ -116,11 +117,13 @@ namespace TMS.Controllers
         /// OR
         /// HEADER: 400 (Bad Request)
         /// </returns>
-        [ResponseType(typeof(Property))]
+        /// [Route("api/propertydata/updateproperty")]
+
+        [ResponseType(typeof(void))]
         [HttpPost]
-        [Route("api/propertydata/updateproperty")]
         public IHttpActionResult UpdateProperty(int id, Property property)
         {
+
             //check if there is some errors and id matches the propertyId
             if (!ModelState.IsValid || property.PropertyId != id)
             {
@@ -144,6 +147,81 @@ namespace TMS.Controllers
                 }
             }
             return StatusCode(HttpStatusCode.NotFound);
+        }
+        /// <summary>
+        /// Gathers information about animals related to a particular keeper
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all animals in the database, including their associated species that match to a particular keeper id
+        /// </returns>
+        /// <param name="id">Keeper ID.</param>
+        /// <example>
+        /// GET: api/TenantData/ListTenantsForProperty/1
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(LeaseDto))]
+        public IHttpActionResult ListTenantsForProperty(int id)
+        {
+
+            //all tenants that have properties which match with our ID
+            //can't directly access the ticket's bookings
+            //access the lease bridging table,
+            //joining the tickets in
+            List<Lease> TenantAndProperty = Tms.Leases.Where(l => l.PropertyId == id).Include(l => l.Tenant).ToList();
+
+            List<LeaseDto> LeaseDtos = new List<LeaseDto>();
+
+            TenantAndProperty.ForEach(d => LeaseDtos.Add(new LeaseDto()
+            {
+                LeaseId = d.LeaseId,
+                TenantId = d.Tenant.TenantId,
+                PropertyId = d.Property.PropertyId,
+                PropertyName = d.Property.PropertyName,
+                PropertyAddress = d.Property.PropertyAddress,
+                Floor = d.Floor,
+                Room = d.Room,
+                LeaseEndDate = d.LeaseEndDate
+,
+            }));
+
+
+            return Ok(LeaseDtos.Count);
+        }
+
+        ///this will access the property table
+        /// <summary>
+        /// delete a single property's data
+        /// </summary>
+        /// <example> Post api/propertydata/deleteproperty/23</example>
+        /// <returns>
+        /// </returns>
+        ///[Route("api/propertydata/deleteproperty/{id}")]
+
+        [ResponseType(typeof(Property))]
+        [HttpPost]
+        public IHttpActionResult DeleteProperty(int id )
+        {
+
+            Property property = Tms.Properties.Find(id);
+            Debug.WriteLine(id);
+            if (property == null)
+            {
+                return NotFound();
+            }
+            //check if a tenant has any lease
+            var leases = Tms.Leases.Where(row => row.PropertyId == id).ToList();
+
+            if (leases != null) { 
+               
+                // Delete all the leases that belong to the property
+                Tms.Leases.RemoveRange(leases);
+                
+            }
+
+            Tms.Properties.Remove(property);
+            Tms.SaveChanges();
+            return Ok();
         }
         /// <summary>
         /// method to check if a property exists

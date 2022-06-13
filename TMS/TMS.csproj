@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202206102025310_leasetablesdata.designer.cs">
       <DependentUpon>202206102025310_leasetablesdata.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206121444491_nullablfiled.cs" />
+    <Compile Include="Migrations\202206121444491_nullablfiled.designer.cs">
+      <DependentUpon>202206121444491_nullablfiled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Landlord.cs" />
     <Compile Include="Models\Lease.cs" />
@@ -209,6 +213,7 @@
     <Compile Include="Models\Tenant.cs" />
     <Compile Include="Models\ViewModels\TenantAndProperty.cs" />
     <Compile Include="Models\TmDbContext.cs" />
+    <Compile Include="Models\ViewModels\PropertyDetails.cs" />
     <Compile Include="Models\ViewModels\TenantDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -254,10 +259,13 @@
     <Content Include="Views\Tenant\Edit.cshtml" />
     <Content Include="Views\Tenant\DeleteConfirm.cshtml" />
     <Content Include="Views\Tenant\NewLease.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\View.cshtml" />
+    <Content Include="Views\Property\Edit.cshtml" />
+    <Content Include="Views\Property\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Property\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -281,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206102025310_leasetablesdata.resx">
       <DependentUpon>202206102025310_leasetablesdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206121444491_nullablfiled.resx">
+      <DependentUpon>202206121444491_nullablfiled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

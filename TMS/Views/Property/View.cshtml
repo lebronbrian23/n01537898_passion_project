@@ -1,0 +1,54 @@
+﻿@model TMS.Models.ViewModels.PropertyDetails
+
+@{
+    ViewBag.Title = "View Properties";
+}
+
+
+<div id="tenants" class="row">
+
+    <h2>Tenant <span># @Model.Property.PropertyId</span></h2>
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Name</strong>
+                <p>@Model.Property.PropertyName</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <strong>Address</strong>
+                <p>@Model.Property.PropertyAddress</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Floors</strong>
+                <p>@Model.Property.PropertyFloors</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Construncted</strong>
+                <p>@Model.Property.PropertyConstructed.ToString("yyyy-MM-dd")</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <a href="/property/edit/@Model.Property.PropertyId" class="btn bg-purple">Edit</a>
+            </div>
+            <div class="col-md-6">
+                <a href="/property/deleteconfirm/@Model.Property.PropertyId" class="btn btn-danger">Delete</a>
+            </div>
+
+        </div>
+    </div>
+
+    @* <div class="col-md-6 left-border-line">
+            <h3>Tenant(s) @Model.Leases.Count()</h3>
+            
+        </div>
+    *@
+</div>

@@ -270,12 +270,12 @@ namespace TMS.Controllers
                 return NotFound();
             }
             //check if a tenant has any lease
-            var lease = Tms.Leases.First(row => row.TenantId == id );
+            var lease = Tms.Leases.Where(row => row.TenantId == id ).ToList();
 
             if (lease != null)
             {
                // Delete all the leases that belong to the tenant
-                Tms.Leases.Remove(lease);
+                Tms.Leases.RemoveRange(lease);
             }
 
             Tms.Tenants.Remove(tenant);

@@ -1,0 +1,14 @@
+﻿@model TMS.Models.Property
+
+@{
+    ViewBag.Title = "Delete Confirmation";
+}
+
+<h2>Are you sure you want to delete this Property?</h2>
+<h2>@Model.PropertyName</h2>
+
+<form action="/Property/delete/@Model.PropertyId" method="POST">
+    <input type="submit" value="Confirm Delete" class="btn btn-success" />
+    <a class="btn btn-danger" href="/Property/view/@Model.PropertyId">Cancel</a>
+
+</form>
