@@ -16,4 +16,13 @@ TMS has 4 tables.
 - properties table captures properties for  the landlord.
 
 
+## How to Run This Project?
 
+- Clone the repository in Visual Studio
+- Open the project folder on your computer (e.g. File Explore for Windows Users)
+- Create an <App_Data> folder in the main project folder
+- Go back to Visual Studio and open Package Manager Console and run the query to build the database on your local server:
+- update-database
+- The project should set up
+
+## Future features
