@@ -33,5 +33,6 @@ TMS has 4 tables.
 ## Future features & Improvements
 - User Authentication
 - Adding tenants photos
+- Capturing more data when generating a lease
 - Better UI Design
 
