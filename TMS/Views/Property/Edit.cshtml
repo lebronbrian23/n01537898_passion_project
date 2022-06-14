@@ -14,7 +14,15 @@
             <input class="form-control" id="LandlordId" name="LandlordId" type="hidden" value="1" />
             <input class="form-control" id="id" name="PropertyId" type="hidden" value="@Model.Property.PropertyId" placeholder="Name" />
 
-
+            <div class="form-group">
+                <label id="LandlordId">Landlord</label>
+                <select id="LandlordId" name="LandlordId" class="form-control">
+                    @foreach (var landlord in Model.ListLandlordData)
+                    {
+                        <option value="@landlord.LandlordId">@landlord.LandlordName</option>
+                    }
+                </select>
+            </div>
             <div class="form-group">
                 <label id="name">Name</label>
                 <input class="form-control" id="name" name="PropertyName" type="text" value="@Model.Property.PropertyName" placeholder="Name" />
@@ -25,7 +33,7 @@
             </div>
 
             <div class="form-group">
-                <label id="constructed">Constructed</label> 
+                <label id="constructed">Constructed</label>
                 <input class="form-control" name="PropertyConstructed" id="constructed" type="date" value="@Model.Property.PropertyConstructed.ToString("yyyy-MM-dd")" />
             </div>
             <div class="form-group">

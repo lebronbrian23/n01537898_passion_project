@@ -13,7 +13,7 @@ namespace TMS.Models
         [Key]
         public int LandlordId { get; set; }
         public string LandlordName { get; set; }
-        public DateTime? LandlordDOB { get; set; }
+        public DateTime LandlordDOB { get; set; }
         public string LandlordPhone { get; set; }
         public string LandlordEmail { get; set; }
 
@@ -24,7 +24,7 @@ namespace TMS.Models
     {
         public int LandlordId { get; set; }
         public string LandlordName { get; set; }
-        public DateTime? LandlordDOB { get; set; }
+        public DateTime LandlordDOB { get; set; }
         public string LandlordPhone { get; set; }
         public string LandlordEmail { get; set; }
 

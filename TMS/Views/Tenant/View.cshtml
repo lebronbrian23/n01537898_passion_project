@@ -69,11 +69,12 @@
 
                     @foreach (var lease in Model.Leases)
                     {
+                        string view_property_url = "/property/view/" + lease.PropertyId;
                         string delete_url = "/tenant/deletelease/" + lease.LeaseId +"?TenantId=" + lease.TenantId;
                         <tr>
                             <td>@lease.Floor</td>
                             <td>@lease.Room</td>
-                            <td>@lease.PropertyName</td>
+                            <td><a href="@view_property_url">@lease.PropertyName</a></td>
                             <td>@lease.PropertyAddress</td>
                             <td>@lease.LeaseEndDate.ToString("yyyy-MM-dd")</td>
                             <td><a href="@delete_url" class="text-danger"><i class="fa-solid fa-x"></i></a></td>

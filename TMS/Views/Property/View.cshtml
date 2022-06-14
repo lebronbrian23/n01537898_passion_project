@@ -7,7 +7,7 @@
 
 <div id="tenants" class="row">
 
-    <h2>Tenant <span># @Model.Property.PropertyId</span></h2>
+    <h2>Property <span># @Model.Property.PropertyId</span></h2>
     <div class="col-md-6">
 
         <div class="row">
@@ -36,6 +36,16 @@
         </div>
         <div class="row">
             <div class="col-md-6">
+                <strong>Owner</strong>
+                <p>@Model.Property.LandlordName</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Phone</strong>
+                <p>@Model.Property.LandlordPhone</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
 
                 <a href="/property/edit/@Model.Property.PropertyId" class="btn bg-purple">Edit</a>
             </div>
@@ -46,9 +56,41 @@
         </div>
     </div>
 
-    @* <div class="col-md-6 left-border-line">
-            <h3>Tenant(s) @Model.Leases.Count()</h3>
-            
-        </div>
-    *@
+    <div class="col-md-6 left-border-line">
+        <h2>Tenants(s) @Model.PropertyLease.Count()</h2>
+        <div class="row">
+            <div class="col-md-10">
+                @if (Model.PropertyLease.Count() > 0)
+                {
+                    <table class="table-responsive" width="100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th colspan="2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var tenant in Model.PropertyLease)
+                            {
+                                string edit_url = "/tenant/edit/" + tenant.TenantId;
+                                string view_url = "/tenant/view/" + tenant.TenantId;
+                                <tr>
+                                    <td>@tenant.TenantId</td>
+                                    <td>@tenant.TenantName</td>
+                                    <td><a href="@edit_url"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                                    <td><a href="@view_url"><i class="text-success fa-solid fa-eye"></i></a></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+            </div>
+           
+        </div>              
+
+    </div>
+    
 </div>

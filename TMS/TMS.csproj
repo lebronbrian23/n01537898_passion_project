@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandlordDataController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\LandlordController.cs" />
     <Compile Include="Controllers\PropertyDataController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Controllers\TenantDataController.cs" />
@@ -206,11 +207,16 @@
     <Compile Include="Migrations\202206121444491_nullablfiled.designer.cs">
       <DependentUpon>202206121444491_nullablfiled.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206132348221_landlordfix.cs" />
+    <Compile Include="Migrations\202206132348221_landlordfix.designer.cs">
+      <DependentUpon>202206132348221_landlordfix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Landlord.cs" />
     <Compile Include="Models\Lease.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\Tenant.cs" />
+    <Compile Include="Models\ViewModels\PropertyAndLandlord.cs" />
     <Compile Include="Models\ViewModels\TenantAndProperty.cs" />
     <Compile Include="Models\TmDbContext.cs" />
     <Compile Include="Models\ViewModels\PropertyDetails.cs" />
@@ -263,6 +269,7 @@
     <Content Include="Views\Property\View.cshtml" />
     <Content Include="Views\Property\Edit.cshtml" />
     <Content Include="Views\Property\DeleteConfirm.cshtml" />
+    <Content Include="Views\Landlord\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -292,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206121444491_nullablfiled.resx">
       <DependentUpon>202206121444491_nullablfiled.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206132348221_landlordfix.resx">
+      <DependentUpon>202206132348221_landlordfix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

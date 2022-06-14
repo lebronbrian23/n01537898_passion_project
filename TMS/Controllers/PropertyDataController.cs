@@ -176,6 +176,7 @@ namespace TMS.Controllers
             {
                 LeaseId = d.LeaseId,
                 TenantId = d.Tenant.TenantId,
+                TenantName = d.Tenant.TenantName,
                 PropertyId = d.Property.PropertyId,
                 PropertyName = d.Property.PropertyName,
                 PropertyAddress = d.Property.PropertyAddress,
@@ -186,7 +187,7 @@ namespace TMS.Controllers
             }));
 
 
-            return Ok(LeaseDtos.Count);
+            return Ok(LeaseDtos);
         }
 
         ///this will access the property table

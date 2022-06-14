@@ -114,7 +114,7 @@ namespace TMS.Controllers
         /// </returns>
         [ResponseType(typeof(Landlord))]
         [HttpPost]
-        [Route("api/landlorddata/updatelandlord")]
+        //[Route("api/landlorddata/updatelandlord")]
         public IHttpActionResult UpdateLandlord(int id,Landlord landlord)
         {
             //check if there is some errors and id matches the landlordId

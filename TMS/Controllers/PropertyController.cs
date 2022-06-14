@@ -32,15 +32,24 @@ namespace TMS.Controllers
         public ActionResult Index()
         {
 
-            //url to get list of properties
+            PropertyAndLandlord ViewModel = new PropertyAndLandlord();
+
+            //url to get a tenant  information
             string url = "propertyData/listProperties";
             HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<Property> Properties = response.Content.ReadAsAsync<IEnumerable<Property>>().Result;
+            ViewModel.Property = Properties;
 
-            IEnumerable<ListPropertyData> ListPropertyData = response.Content.ReadAsAsync<IEnumerable<ListPropertyData>>().Result;
+            //url to get list of leases
+            url = "Landlorddata/listLandlords";
+            response = client.GetAsync(url).Result;
+            IEnumerable<Landlord> Landlords = response.Content.ReadAsAsync<IEnumerable<Landlord>>().Result;
+            ViewModel.ListLandlordData = Landlords;
 
-            // pass the list of proporties to /index.cshtml
-            return View(ListPropertyData);
+            // pass the  tenants to /view.cshtml
+            return View(ViewModel);
         }
+     
 
         // POST: property/add
         [HttpPost]
@@ -85,10 +94,10 @@ namespace TMS.Controllers
             // all leases for this tenant
 
             //url to get list of leases
-            ///url = "tenantdata/ListTenantsForProperty/" + id;
-            //response = client.GetAsync(url).Result;
-            //IEnumerable<LeaseDto> Leases = response.Content.ReadAsAsync<IEnumerable<LeaseDto>>().Result;
-            //ViewModel.Leases = Leases;
+            url = "propertydata/ListTenantsForProperty/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<LeaseDto> PropertyLeases = response.Content.ReadAsAsync<IEnumerable<LeaseDto>>().Result;
+            ViewModel.PropertyLease = PropertyLeases;
 
             // pass the  tenants to /view.cshtml
             return View(ViewModel);
@@ -106,6 +115,11 @@ namespace TMS.Controllers
             PropertyData Property = response.Content.ReadAsAsync<PropertyData>().Result;
             ViewModel.Property = Property;
 
+            //url to get list of leases
+            url = "Landlorddata/listLandlords";
+            response = client.GetAsync(url).Result;
+            IEnumerable<Landlord> Landlords = response.Content.ReadAsAsync<IEnumerable<Landlord>>().Result;
+            ViewModel.ListLandlordData = Landlords;
 
             return View(ViewModel);
         }

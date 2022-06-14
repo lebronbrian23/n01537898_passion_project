@@ -32,6 +32,7 @@ namespace TMS.Models
     {
         public int LeaseId { get; set; }
         public int TenantId { get; set; }
+        public string TenantName { get; set; }
         public int PropertyId { get; set; }
         public string PropertyName { get; set; }
         public string PropertyAddress { get; set; }

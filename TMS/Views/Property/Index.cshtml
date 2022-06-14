@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TMS.Models.ListPropertyData>
+﻿@model TMS.Models.ViewModels.PropertyAndLandlord
 @{
     ViewBag.Title = "Index";
 }
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
 
-                @foreach (var property in Model)
+                @foreach (var property in Model.Property)
                 {
                     string edit_url = "/property/edit/" + property.PropertyId;
                     string view_url = "/property/view/" + property.PropertyId;
@@ -37,9 +37,16 @@
     <div class="col-md-5 form-bg">
         <h2>New Property</h2>
         <form class="form form-horizontal" action="/property/add" method="post">
-            <input class="form-control" id="LandlordId" name="LandlordId" type="hidden" value="1" />
+            <div class="form-group">
+                <label id="LandlordId">Landlord</label>
+                <select  id="LandlordId" name="LandlordId" class="form-control">
+                    @foreach (var landlord in Model.ListLandlordData)
+                    {
+                        <option value="@landlord.LandlordId">@landlord.LandlordName</option>
+                    }
+                </select>
+            </div>
 
-            
             <div class="form-group">
                 <label id="name">Name</label>
                 <input class="form-control" id="name" name="PropertyName" type="text" value="" placeholder="Name" />
