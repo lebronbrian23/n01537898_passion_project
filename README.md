@@ -15,6 +15,11 @@ TMS has 4 tables.
 - Lease table is a bridging table between a tenant and a landlord.
 - properties table captures properties for  the landlord.
 
+## Concepts Used:
+
+- ASP.NET MVC architecture pattern
+- Entity Framework Code-First Migrations to represent the database
+- LINQ to perform CRUD operations
 
 ## How to Run This Project?
 
@@ -25,4 +30,8 @@ TMS has 4 tables.
 - update-database
 - The project should set up
 
-## Future features
+## Future features & Improvements
+- User Authentication
+- Adding tenants photos
+- Better UI Design
+- 
