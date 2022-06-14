@@ -34,5 +34,6 @@ TMS has 4 tables.
 - User Authentication
 - Adding tenants photos
 - Capturing more data when generating a lease
+- Ability to determine how many rooms are in the building and how many are empty
 - Better UI Design
 
